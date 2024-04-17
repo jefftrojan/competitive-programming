@@ -9,15 +9,22 @@ class Solution(object):
         :type head: ListNode
         :rtype: bool
         """
-        temp = head
-        store = []
-        while temp:
-            store.append(temp.val)
-            temp = temp.next
-        temp = head
-        for i in range(len(store) -1, -1, -1):
-            if temp.val != store[i]:
-                return False
-            temp = temp.next
-        return True
+        slow = fast = head 
+        while fast and fast.next:
+           fast = fast.next.next
+           slow = slow.next 
+            
+        stack1=[]
+        stack2 = []
+        
+        fast = slow 
+        slow = head
+        while fast:
+            stack2.append(slow.val)
+            stack1.append(fast.val)
+            fast = fast.next
+            slow = slow.next 
+            
+        stack2.reverse()
+        return stack1 == stack2
         
